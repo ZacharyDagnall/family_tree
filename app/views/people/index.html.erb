@@ -1,0 +1,14 @@
+<h1> Look at all these people !</h1>
+
+<ul>
+    <% @people.each do |person| %>
+        <li> <%= link_to person.name, person_path(person) %> is <%= person.age %> years old </li>
+    <% end %>
+
+</ul>
+
+<%= link_to "List a new person!", new_person_path %>
+<%= link_to "Home!", root_path %>
+
+
+

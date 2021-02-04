@@ -1,0 +1,69 @@
+<h1> <%=@person.name%> </h1>
+
+<h3> Date of Birth: <%= @person.dob %> </h3>
+
+
+<ul> Parents: 
+    <% @person.parents.each do |parent| %> 
+        <li>  <%= link_to parent.name, person_path(parent) %> </li>
+    <% end %>
+</ul>
+<ul> Children: 
+    <% @person.children.each do |child| %> 
+        <li>  <%= link_to child.name, person_path(child) %> </li>
+    <% end %>
+</ul>
+<h5> Spouse: <%= link_to(@person.spouse.name, person_path(@person.spouse)) unless !@person.spouse %> </h5>
+
+
+
+#siblings
+#cousins
+#grandp/grandc
+#auntcle
+
+<%= link_to "Edit Person info", edit_person_path(@person) %>
+<%= button_to "Delete this person", person_path(@person), method: "delete" %>
+
+<%= link_to "Back to all people", people_path(@person) %>
+
+<h4> Add a parent to this person </h4>
+<%= form_for @filial do |f| %>
+    <%= f.hidden_field :anni, value: @person.dob %>
+    <%= f.label :parent_name, "Parent: "%>
+    <%= f.text_field :parent_name %>
+    <%= f.hidden_field :child_id, value: @person.id%>
+    <%= f.submit "Go!" %>
+<% end %>
+
+<h4> Add a child to this person </h4>
+<%= form_for @filial do |f| %>
+    <%= f.label :anni, "Child's birth: " %>
+    <%= f.date_field :anni %>
+    <%= f.hidden_field :parent_id, value: @person.id%>
+    <%= f.label :child_name, "Child's name: "%>
+    <%= f.text_field :child_name %>
+    <%= f.submit "Go!" %>
+<% end %>
+
+<h4> Add a wife to this person </h4>
+<%= form_for @marriage do |f| %>
+    <%= f.label :anni, "Anniversary" %>
+    <%= f.date_field :anni %>
+    <%= f.hidden_field :husband_id, value: @person.id%>
+    <%= f.label :wife_name, "Wife:"%>
+    <%= f.text_field :wife_name %>
+    <%= f.submit "I do!" %>
+<% end %>
+
+<h4> Add a husband to this person </h4>
+<%= form_for @marriage do |f| %>
+    <%= f.label :anni, "Anniversary" %>
+    <%= f.date_field :anni %>
+    <%= f.label :husband_id, "Husband: "%>
+    <%= f.text_field :husband_name %>
+    <%= f.hidden_field :wife_id, value: @person.id%>
+    <%= f.submit "I do!" %>
+<% end %>
+
+<%= link_to "Home!", root_path %>

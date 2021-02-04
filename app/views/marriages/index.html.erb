@@ -1,0 +1,9 @@
+<h1> What brings us together today </h1>
+
+<ul>
+    <% @marriages.each do |marriage| %>
+        <li> <%= link_to marriage.husband_name, person_path(marriage.husband) %> is <%= link_to "married", marriage_path(marriage) %> to <%= link_to marriage.wife_name, person_path(marriage.wife) %> </li>
+    <% end %>
+</ul>
+
+<%= link_to "Add a new marriage", new_marriage_path %>

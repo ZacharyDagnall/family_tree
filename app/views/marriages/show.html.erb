@@ -1,0 +1,8 @@
+<h1> <%=link_to @marriage.husband_name, person_path(@marriage.husband) %> & <%= link_to @marriage.wife_name, person_path(@marriage.wife) %> </h1>
+
+<h3> Anniversary: <%= @marriage.anni %> </h3>
+
+<%= link_to "Edit marriage info", edit_marriage_path(@marriage) %>
+<%= button_to "Divorce", marriage_path(@marriage), method: "delete" %>
+
+<%= link_to "Back to all marriages", marriages_path %>

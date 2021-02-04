@@ -1,0 +1,11 @@
+<h2> Edit marriage details </h2>
+
+<%= form_for @marriage do |f| %>
+    <%= f.label :anni, "Anniversary" %>
+    <%= f.date_field :anni %>
+    <%= f.label :husband_name, "Husband:"%>
+    <%= f.text_field :husband_name %>
+    <%= f.label :wife_name, "wife:"%>
+    <%= f.text_field :wife_name %>
+    <%= f.submit "I do!" %>
+<% end %>

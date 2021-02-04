@@ -1,0 +1,9 @@
+<h1> And the cats in the cradle and the silver spoon... </h1>
+
+<ul>
+    <% @filials.each do |filial| %>
+        <li> <%= link_to filial.parent_name, person_path(filial.parent) %> is the <%= link_to "parent", filial_path(filial) %> of <%= link_to filial.child_name, person_path(filial.child) %> </li>
+    <% end %>
+</ul>
+
+<%= link_to "Add a new filial", new_filial_path %>
