@@ -9,6 +9,14 @@
 ### sex to tell whether husband or wife?
 ### better use of macros
 
+## home page - should have multiple different families to click on, and each links you to the family tree for that family
+#### but how do i determine the "top" of a family tree ??
+
+## future:
+* a user should be able to log-in and edit their own family info (it takes them to the show page for their own name upon login)
+* they can view (but not edit) all _other_ families when logged in
+* they can view all families when not logged in
+
 
 
 
