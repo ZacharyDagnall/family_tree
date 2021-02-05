@@ -1,6 +1,6 @@
 class FilialsController < ApplicationController
     def index
-        @filials = Filial.all   #.sort_by(&:anni)
+        @filials = Filial.all   #.sort_by(&:anni)  #doesn't work when anni nil
     end
 
     def show

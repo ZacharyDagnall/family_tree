@@ -90,4 +90,24 @@ class Person < ApplicationRecord
     def has_auntcles?
         !self.auntcles.empty?
     end
+
+    def niephcews
+        Person.all.select{|person| person.auntcles.include?(self)}
+    end
+
+    def has_niephcews?
+        !self.niephcews.empty?
+    end
+
+    def alive?
+        self.alive
+    end
+
+    def deceased?
+        !self.alive
+    end
+
+    def deceased=(bool)
+        self.alive = !bool
+    end
 end

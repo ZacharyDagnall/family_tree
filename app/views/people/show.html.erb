@@ -1,44 +1,75 @@
-<h1> <%=@person.name%> </h1>
+
+<h1 style="color: <%@color%> ;" > <%=@person.name%> </h1> <%# the colorization here doesn't work... not sure how to fix. Want red if deceased, and default otherwise (logic in controller) %>
 
 <h3> Date of Birth: <%= @person.dob %> </h3>
 
-<ul> <%= "Parents: " unless @person.orphan? %>
-    <% @person.parents.each do |parent| %> 
-        <li>  <%= link_to parent.name, person_path(parent) %> </li>
-    <% end %>
-</ul>
+<% if @person.married? %>
+    <h4> <%= link_to "Spouse:", marriage_path(@person.marriage) %> <%= link_to @person.spouse.name, person_path(@person.spouse) %> </h5>
+<% end %>
 
-<ul> <%= "Children: " unless !@person.has_children? %>
-    <% @person.children.each do |child| %> 
-        <li>  <%= link_to child.name, person_path(child) %> </li>
-    <% end %>
-</ul>
+<% if !@person.orphan? %>
+    <h4> Parents: </h4>
+    <ul> 
+        <% @person.parents.each do |parent| %> 
+            <li>  <%= link_to parent.name, person_path(parent) %> </li>
+        <% end %>
+    </ul>
+<% end %>
 
-<h5> <%= link_to "Spouse:", marriage_path(@person.marriage) unless !@person.marriage %> <%= link_to(@person.spouse.name, person_path(@person.spouse)) unless !@person.spouse %> </h5>
+<% if @person.has_children? %>
+    <h4> Children: </h4>
+    <ul>
+        <% @person.children.each do |child| %> 
+            <li>  <%= link_to child.name, person_path(child) %> </li>
+        <% end %>
+    </ul>
+<% end %>
 
-<ul> <%= "Siblings: " unless !@person.has_siblings? %> 
-    <% @person.siblings.each do |sibling| %> 
-        <li>  <%= link_to sibling.name, person_path(sibling) %> </li>
-    <% end %>
-</ul>
+<% if @person.has_siblings? %>
+    <h4> Siblings: </h4>
+    <ul> 
+        <% @person.siblings.each do |sibling| %> 
+            <li>  <%= link_to sibling.name, person_path(sibling) %> </li>
+        <% end %>
+    </ul>
+<% end %>
 
-<ul> <%= "Grandparents: " unless !@person.has_grandparents? %> 
-    <% @person.grandparents.each do |gp| %> 
-        <li>  <%= link_to gp.name, person_path(gp) %> </li>
-    <% end %>
-</ul>
+<% if @person.has_grandparents? %>
+    <h4> Grandparents: </h4>
+    <ul> 
+        <% @person.grandparents.each do |gp| %> 
+            <li>  <%= link_to gp.name, person_path(gp) %> </li>
+        <% end %>
+    </ul>
+<% end %>
 
-<ul> <%= "Cousins: " unless !@person.has_cousins? %> 
-    <% @person.cousins.each do |cuz| %> 
-        <li>  <%= link_to cuz.name, person_path(cuz) %> </li>
-    <% end %>
-</ul>
+<% if @person.has_cousins? %>
+    <h4> Cousins: </h4>
+    <ul> 
+        <% @person.cousins.each do |cuz| %> 
+            <li>  <%= link_to cuz.name, person_path(cuz) %> </li>
+        <% end %>
+    </ul>
+<% end %>
 
-<ul> <%= "Auntcles: " unless !@person.has_auntcles? %> 
-    <% @person.auntcles.each do |auntcle| %> 
-        <li>  <%= link_to auntcle.name, person_path(auntcle) %> </li>
-    <% end %>
-</ul>
+<% if @person.has_auntcles? %>
+    <h4> Auntcles: </h4>
+    <ul> 
+        <% @person.auntcles.each do |auntcle| %> 
+            <li>  <%= link_to auntcle.name, person_path(auntcle) %> </li>
+        <% end %>
+    </ul>
+<% end %>
+
+<% if @person.has_niephcews? %>
+    <h4> Niephcews: </h4>
+    <ul> 
+        <% @person.niephcews.each do |niephcew| %> 
+            <li>  <%= link_to niephcew.name, person_path(niephcew) %> </li>
+        <% end %>
+    </ul>
+<% end %>
+
 
 <%= link_to "Edit Person info", edit_person_path(@person) %>
 <%= button_to "Delete this person", person_path(@person), method: "delete" %>
@@ -67,25 +98,28 @@
 </p>
 
 <p>
-    <%= "Add a wife to this person" unless @person.married? %>
-    <%= form_for @marriage do |f| %>
-        <%= f.label :anni, "Anniversary" %>
-        <%= f.date_field :anni %>
-        <%= f.hidden_field :husband_id, value: @person.id%>
-        <%= f.label :wife_name, "Wife:"%>
-        <%= f.text_field :wife_name %>
-        <%= f.submit "I do!" %>
-    <% end unless @person.married? %>
+    <% if @person.single? %>
+        <%= "Add a wife to this person" %>
+        <%= form_for @marriage do |f| %>
+            <%= f.label :anni, "Anniversary" %>
+            <%= f.date_field :anni %>
+            <%= f.hidden_field :husband_id, value: @person.id%>
+            <%= f.label :wife_name, "Wife:"%>
+            <%= f.text_field :wife_name %>
+            <%= f.submit "I do!" %>
+        <% end %>
 
-    <%= "Add a husband to this person" unless @person.married? %>
-    <%= form_for @marriage do |f| %>
-        <%= f.label :anni, "Anniversary" %>
-        <%= f.date_field :anni %>
-        <%= f.label :husband_id, "Husband: "%>
-        <%= f.text_field :husband_name %>
-        <%= f.hidden_field :wife_id, value: @person.id%>
-        <%= f.submit "I do!" %>
-    <% end unless @person.married? %> 
+
+        <%= "Add a husband to this person"%>
+        <%= form_for @marriage do |f| %>
+            <%= f.label :anni, "Anniversary" %>
+            <%= f.date_field :anni %>
+            <%= f.label :husband_id, "Husband: "%>
+            <%= f.text_field :husband_name %>
+            <%= f.hidden_field :wife_id, value: @person.id%>
+            <%= f.submit "I do!" %>
+        <% end %>
+    <% end %>
 </p>
 
 <%= link_to "Home!", root_path %>

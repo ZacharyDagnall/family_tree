@@ -1,7 +1,7 @@
 class MarriagesController < ApplicationController
     
     def index
-        @marriages = Marriage.all.sort_by(&:anni)
+        @marriages = Marriage.all   #.sort_by(&:anni) #doesn't work when anni nil
     end
 
     def show

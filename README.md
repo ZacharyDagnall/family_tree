@@ -2,8 +2,7 @@
 
 
 # What's next?
-### add methods for aunts uncles cousins grandparents
-### sex to tell whether husband or wife?
+### sex to tell whether husband or wife / aunt/uncle / niece/nephew ??
 
 ## home page - should have multiple different families to click on, and each links you to the family tree for that family
 #### but how do i determine the "top" of a family tree ??

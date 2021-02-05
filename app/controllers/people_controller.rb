@@ -7,6 +7,10 @@ class PeopleController < ApplicationController
         @person = Person.find(params[:id])
         @marriage = Marriage.new
         @filial = Filial.new
+        @color = 'default'
+        if (@person.deceased?)
+            @color = 'red'
+        end
     end
 
     def new
