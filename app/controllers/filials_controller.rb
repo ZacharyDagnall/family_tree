@@ -1,6 +1,6 @@
 class FilialsController < ApplicationController
     def index
-        @filials = Filial.all.sort_by(&:anni)
+        @filials = Filial.all   #.sort_by(&:anni)
     end
 
     def show
@@ -12,8 +12,14 @@ class FilialsController < ApplicationController
     end
     
     def create
-        @filial = Filial.create(filials_params)
-        redirect_to filial_path(@filial)
+        @filial = Filial.create(filial_params)
+        if request.referer.include?("/filials")
+            redirect_to filial_path(@filial)
+        elsif request.referer.include?("/people")
+            redirect_back fallback_location: person_path(@filial.parent)
+        else
+            redirect_to root_path
+        end
     end
 
     def edit
@@ -22,7 +28,7 @@ class FilialsController < ApplicationController
 
     def update
         @filial = Filial.find(params[:id])
-        @filial.update(filials_params)
+        @filial.update(filial_params)
         redirect_to filial_path(@filial)
     end
 
@@ -33,7 +39,7 @@ class FilialsController < ApplicationController
     end
 
     private
-    def filials_params
+    def filial_params
         params.require(:filial).permit(:name, :anni, :parent_name, :child_name, :parent_id, :child_id)
     end
 end

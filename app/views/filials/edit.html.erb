@@ -1,8 +1,7 @@
 <h2> aPARENTly, something needs adjusting... </h2>
 
 <%= form_for @filial do |f| %>
-    <%= f.label :anni, "Child's birth" %>
-    <%= f.date_field :anni %>
+    <%= f.hidden_field :anni, value: Date.today %>
     <%= f.label :parent_name, "parent:"%>
     <%= f.text_field :parent_name %>
     <%= f.label :child_name, "child:"%>

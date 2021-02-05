@@ -13,8 +13,14 @@ class MarriagesController < ApplicationController
     end
     
     def create
-        @marriage = Marriage.create(marriages_params)
-        redirect_to marriage_path(@marriage)
+        @marriage = Marriage.create(marriage_params)
+        if request.referer.include?("/marriages")
+            redirect_to marriage_path(@marriage)
+        elsif request.referer.include?("/people")
+            redirect_back fallback_location: person_path(@marriage.husband)
+        else
+            redirect_to root_path
+        end
     end
 
     def edit
@@ -23,7 +29,7 @@ class MarriagesController < ApplicationController
 
     def update
         @marriage = Marriage.find(params[:id])
-        @marriage.update(marriages_params)
+        @marriage.update(marriage_params)
         redirect_to marriage_path(@marriage)
     end
 
@@ -34,7 +40,7 @@ class MarriagesController < ApplicationController
     end
 
     private
-    def marriages_params
+    def marriage_params
         params.require(:marriage).permit(:name, :anni, :husband_name, :wife_name, :husband_id, :wife_id)
     end
 

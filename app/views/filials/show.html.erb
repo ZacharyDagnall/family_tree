@@ -1,8 +1,6 @@
 <h1> <%=link_to @filial.parent_name, person_path(@filial.parent) %> & <%= link_to @filial.child_name, person_path(@filial.child) %> </h1>
 
-<h3> Anniversary: <%= @filial.anni %> </h3>
-
 <%= link_to "Edit filial info", edit_filial_path(@filial) %>
-<%= button_to "Divorce", filial_path(@filial), method: "delete" %>
+<%= button_to "Disown", filial_path(@filial), method: "delete" %>
 
 <%= link_to "Back to all filials", filials_path %>
